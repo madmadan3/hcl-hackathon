@@ -31,8 +31,10 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
+      # Step 5: Terraform Destroy
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: |
+          terraform destroy -auto-approve
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
