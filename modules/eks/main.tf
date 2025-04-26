@@ -1,6 +1,7 @@
 resource "aws_eks_cluster" "main" {
   name     = var.cluster_name
-  role_arn = "arn:aws:iam::539935451710:role/hcl_hackathon_sankar_eks_cluster-cluster-role"
+  role_arn = aws_iam_role.eks_role.arn
+  //role_arn = "arn:aws:iam::539935451710:role/hcl_hackathon_sankar_eks_cluster-cluster-role"
   //role_arn = aws_iam_role.eks_role.arn
   //cluster_role_arn = "arn:aws:iam::539935451710:role/my2-cluster-role"
   vpc_config {
@@ -8,7 +9,6 @@ resource "aws_eks_cluster" "main" {
   }
 }
 
-/*
 resource "aws_iam_role" "eks_role" {
   name = "${var.cluster_name}-role"
 
@@ -24,6 +24,12 @@ resource "aws_iam_role" "eks_role" {
       }
     ]
   })
+}
+
+/*
+resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
+  role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
 resource "aws_iam_role" "eks_role" {
